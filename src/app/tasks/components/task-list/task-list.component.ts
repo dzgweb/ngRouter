@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router} from '@angular/router';
 
 import { TaskModel } from '../../models/task.model';
 import { TaskArrayService } from '../../services/task-array.service';
@@ -10,7 +11,10 @@ import { TaskArrayService } from '../../services/task-array.service';
 export class TaskListComponent implements OnInit {
   tasks: Promise<Array<TaskModel>>;
 
-  constructor(private taskArrayService: TaskArrayService) {}
+  constructor(
+    private taskArrayService: TaskArrayService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.tasks = this.taskArrayService.getTasks();
@@ -21,5 +25,8 @@ export class TaskListComponent implements OnInit {
     this.taskArrayService.updateTask(updatedTask);
   }
 
-  onEditTask(task: TaskModel): void {}
+  onEditTask(task: TaskModel): void {
+    const link = ['/edit', task.id];
+    this.router.navigate(link);
+  }
 }
