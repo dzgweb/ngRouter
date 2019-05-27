@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // rxjs
 import { Observable } from 'rxjs';
@@ -15,9 +16,20 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private userArrayService: UserArrayService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.users$ = this.userArrayService.getUsers();
   }
+
+  onEditUser(user: UserModel) {
+    const link = ['/users/edit', user.id];
+    this.router.navigate(link);
+    // or
+    // const link = ['edit', user.id];
+    // this.router.navigate(link, {relativeTo: this.route});
+  }
+
 }

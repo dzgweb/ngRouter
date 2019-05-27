@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MessagesService } from './core';
 
@@ -9,7 +10,10 @@ import { MessagesService } from './core';
 })
 export class AppComponent {
   title = 'ngTaskManager';
-  constructor(public messagesService: MessagesService) { }
+  constructor(
+    private router: Router,
+    public messagesService: MessagesService
+  ) { }
 
   onActivate($event) {
     console.log('Activated Component', $event);
@@ -17,5 +21,10 @@ export class AppComponent {
 
   onDeactivate($event) {
     console.log('Deactivated Component', $event);
+  }
+
+  onDisplayMessages(): void {
+    this.router.navigate([{ outlets: { messages: ['messages'] } }]);
+    this.messagesService.isDisplayed = true;
   }
 }

@@ -18,6 +18,9 @@
               <a routerLink="/home">Home</a>
             </li>
             <li routerLinkActive="active">
+              <a routerLink="/users">Users</a>
+            </li>
+            <li routerLinkActive="active">
               <a routerLink="/about">About</a>
             </li>
           </ul>
@@ -36,9 +39,9 @@
       <div class="col-md-2">
         <button class="btn btn-success"
           *ngIf="!messagesService.isDisplayed"
-          [routerLink]="[{outlets: {messages: ['messages']}}]">
-          Show Messages
+          (click)="onDisplayMessages()">Show Messages
         </button>
+
         <router-outlet name="messages"></router-outlet>
       </div>
     </div>
