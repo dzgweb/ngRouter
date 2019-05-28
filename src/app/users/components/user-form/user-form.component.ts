@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 // rxjs
 import { Observable, Subscription } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 import { UserModel } from './../../models/user.model';
 import { UserArrayService } from './../../services/user-array.service';
@@ -12,11 +13,9 @@ import { DialogService, CanComponentDeactivate } from './../../../core';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
 })
-export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactivate {
+export class UserFormComponent implements OnInit, CanComponentDeactivate {
   user: UserModel;
   originalUser: UserModel;
-
-  private sub: Subscription;
 
   constructor(
     private userArrayService: UserArrayService,
@@ -26,22 +25,10 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   ) { }
 
   ngOnInit(): void {
-    this.user = new UserModel(null, '', '');
-
-    // we should recreate component because this code runs only once
-    const id = +this.route.snapshot.paramMap.get('userID');
-    this.sub = this.userArrayService.getUser(id)
-      .subscribe(
-        user => {
-          this.user = {...user};
-          this.originalUser = {...user};
-        },
-        err => console.log(err)
-      );
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.route.data.pipe(pluck('user')).subscribe((user: UserModel) => {
+      this.user = { ...user };
+      this.originalUser = { ...user };
+    });
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -57,7 +44,7 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     }
     
     return this.dialogService.confirm('Discard changes?');
-}
+  }
 
 
   onSaveUser() {

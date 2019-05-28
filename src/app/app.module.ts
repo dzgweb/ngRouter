@@ -10,6 +10,7 @@ import { CoreModule } from './core/core.module';
 import { TasksModule } from './tasks/tasks.module';
 import { UsersModule } from './users/users.module';
 import { AdminModule } from './admin/admin.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AdminModule } from './admin/admin.module';
     AdminModule,
     UsersModule,
     TasksModule,
+    SharedModule,
     // AppRoutingModule MUST BE LAST 
     AppRoutingModule
   ],
