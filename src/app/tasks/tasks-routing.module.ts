@@ -5,7 +5,8 @@ import { TaskListComponent, TaskFormComponent } from './components';
 const routes: Routes = [
   {
     path: 'home',
-    component: TaskListComponent
+    component: TaskListComponent,
+    data: { title: 'Task Manager'}
   },
   {
     path: 'edit/:taskID',
