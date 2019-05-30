@@ -57,7 +57,7 @@ const routes: Routes = [
 const extraOptions: ExtraOptions = {
  // preloadingStrategy: PreloadAllModules,
   preloadingStrategy: CustomPreloadingStrategyService,
-  enableTracing: true // Makes the router log all its internal events to the console.
+  enableTracing: false // Makes the router log all its internal events to the console.
 };
 
 
