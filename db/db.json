@@ -1,13 +1,6 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "action": "Estimate",
-      "priority": 2,
-      "estHours": 8,
-      "done": true
-    },
-    {
       "id": 2,
       "action": "Create",
       "priority": 2,
@@ -29,13 +22,20 @@
       "id": 5,
       "action": "Build",
       "priority": 1,
-      "estHours": 4
+      "estHours": 4,
+      "done": true
     },
     {
-      "id": 6,
-      "action": "Deploy",
+      "action": "Test",
+      "priority": 10,
+      "estHours": 10,
+      "id": 7
+    },
+    {
+      "action": "Test",
       "priority": 2,
-      "estHours": 8
+      "estHours": 2,
+      "id": 8
     }
   ],
   "users": [

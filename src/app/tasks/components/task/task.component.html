@@ -9,13 +9,18 @@
       <li>Done: {{task.done}}</li>
     </ul>
     <button class="btn btn-primary btn-sm"
-            (click)="onCompleteTask()"
-            [disabled]="task.done">
+      (click)="onCompleteTask()"
+      [disabled]="task.done">
       Done
     </button>
     <button class="btn btn-warning btn-sm"
-            (click)="onEditTask()">
+      (click)="onEditTask()">
       Edit
     </button>
+    <button class="btn btn-danger btn-sm"
+			(click)="onDeleteTask()">
+			Delete
+		</button>
+
   </div>
 </div>
