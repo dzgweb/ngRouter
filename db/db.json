@@ -42,7 +42,7 @@
   "users": [
     {
       "id": 1,
-      "firstName": "Ann",
+      "firstName": "Anna",
       "lastName": "Borisova"
     },
     {
@@ -69,6 +69,11 @@
       "id": 6,
       "firstName": "Hunna",
       "lastName": "Jackson"
+    },
+    {
+      "firstName": "Vova",
+      "lastName": "Borisova",
+      "id": 7
     }
   ]
 }
