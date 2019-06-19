@@ -60,7 +60,7 @@ export class UserObservableService {
       .pipe(
         catchError( this.handleError )
       );
-   }
+  }
 
   deleteUser(user: UserModel): Observable<UserModel[]> {
     const url = `${this.usersUrl}/${user.id}`;
