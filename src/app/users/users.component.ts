@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './users.component.html',
@@ -6,9 +7,15 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter
 })
 export class UsersComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
+  onCreateUser() {
+    const link = ['/users/add'];
+    this.router.navigate(link);
+  }
 }
