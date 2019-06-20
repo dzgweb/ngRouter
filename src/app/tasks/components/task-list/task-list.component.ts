@@ -27,7 +27,7 @@ export class TaskListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.tasks = this.taskPromiseService.getTasks();
+    // this.tasks = this.taskPromiseService.getTasks();
     // ngrx store
     this.tasksState$ = this.store.pipe(select('tasks'));
   }
@@ -36,8 +36,7 @@ export class TaskListComponent implements OnInit {
     // const updatedTask = { ...task, done: true };
     // this.taskArrayService.updateTask(updatedTask);
 
-    //this.updateTask(task).catch(err => console.log(err));
-
+    // this.updateTask(task).catch(err => console.log(err));
     this.store.dispatch(new TasksActions.DoneTask(task));
   }
 
