@@ -8,7 +8,8 @@ export enum TasksActionTypes {
   GET_TASK = '[Tasks] GET_TASK',
   CREATE_TASK = '[Tasks] CREATE_TASK',
   UPDATE_TASK = '[Tasks] UPDATE_TASK',
-  DELETE_TASK = '[Tasks] DELETE_TASK'
+  DELETE_TASK = '[Tasks] DELETE_TASK',
+  DONE_TASK = '[Tasks] DONE_TASK'
 }
 
 export class GetTasks implements Action {
@@ -35,10 +36,15 @@ export class DeleteTask implements Action {
   constructor(public payload: TaskModel) { }
 }
 
+export class DoneTask implements Action {
+  readonly type = TasksActionTypes.DONE_TASK;
+  constructor(public payload: TaskModel) { }
+}
+
 export type TasksActions
   = GetTasks
   | GetTask
   | CreateTask
   | UpdateTask
-  | DeleteTask;
-
+  | DeleteTask
+  | DoneTask;
