@@ -5,6 +5,7 @@
       "action": "Create",
       "priority": 2,
       "estHours": 8,
+      "actHours": 4,
       "done": true
     },
     {

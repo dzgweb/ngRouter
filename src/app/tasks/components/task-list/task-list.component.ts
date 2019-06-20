@@ -4,20 +4,29 @@ import { Router} from '@angular/router';
 import { TaskModel } from '../../models/task.model';
 import { TaskPromiseService } from '../../services';
 
+// @Ngrx
+import { Store, select } from '@ngrx/store';
+import { AppState, TasksState } from './../../../core/+store';
+import { Observable } from 'rxjs';
+
 @Component({
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
   tasks: Promise<Array<TaskModel>>;
+  tasksState$: Observable<TasksState>;
 
   constructor(
     private router: Router,
-    private taskPromiseService: TaskPromiseService
+    private taskPromiseService: TaskPromiseService,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit() {
-    this.tasks = this.taskPromiseService.getTasks();
+    //this.tasks = this.taskPromiseService.getTasks();
+    // ngrx store
+    this.tasksState$ = this.store.pipe(select('tasks'));
   }
 
   onCompleteTask(task: TaskModel): void {
