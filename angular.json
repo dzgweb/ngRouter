@@ -137,5 +137,8 @@
       }
     }
   },
-  "defaultProject": "ngTaskManager"
+  "defaultProject": "ngTaskManager",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
