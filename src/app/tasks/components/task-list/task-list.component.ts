@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 
 // @Ngrx
 import { Store, select } from '@ngrx/store';
-import { AppState, TasksState } from './../../../core/+store';
+import { AppState, getTasksData, getTasksError} from './../../../core/+store';
 import * as TasksActions from './../../../core/+store/tasks/tasks.actions';
 
 @Component({
@@ -16,7 +16,8 @@ import * as TasksActions from './../../../core/+store/tasks/tasks.actions';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasksState$: Observable<TasksState>;
+  tasks$: Observable<ReadonlyArray<TaskModel>>;
+  tasksError$: Observable<Error | string>;
 
   constructor(
     private router: Router,
@@ -24,7 +25,11 @@ export class TaskListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.tasksState$ = this.store.pipe(select('tasks'));
+    //this.tasksState$ = this.store.pipe(select(getTasksState));
+
+    this.tasks$ = this.store.pipe(select(getTasksData));
+    this.tasksError$ = this.store.pipe(select(getTasksError));
+
     this.store.dispatch(new TasksActions.GetTasks());
   }
 
