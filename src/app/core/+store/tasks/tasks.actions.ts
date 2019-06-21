@@ -23,8 +23,6 @@ export enum TasksActionTypes {
   DELETE_TASK = '[Tasks] DELETE_TASK',
   DELETE_TASK_SUCCESS = '[Tasks] DELETE_TASK_SUCCESS',
   DELETE_TASK_ERROR = '[Tasks] DELETE_TASK_ERROR',
-
-  DONE_TASK = '[Tasks] DONE_TASK'
 }
 
 export class GetTasks implements Action {
@@ -121,6 +119,5 @@ export type TasksActions
   | DeleteTask
   | DeleteTaskSuccess
   | DeleteTaskError
-  | DoneTask
   | UpdateTaskSuccess
   | UpdateTaskError;
