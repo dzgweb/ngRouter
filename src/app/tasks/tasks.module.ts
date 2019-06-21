@@ -8,8 +8,8 @@ import { TaskListComponent, TaskComponent, TaskFormComponent } from './component
 
 // ngrx
 import { StoreModule } from '@ngrx/store';
-import { tasksReducer } from './../core/+store';
-
+import { TasksEffects, tasksReducer } from './../core/+store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [TaskListComponent, TaskComponent, TaskFormComponent],
@@ -17,6 +17,7 @@ import { tasksReducer } from './../core/+store';
     CommonModule,
     FormsModule,
     StoreModule.forFeature('tasks', tasksReducer),
+    EffectsModule.forFeature([TasksEffects]),
     TasksRoutingModule,
     TasksServicesModule
   ]
