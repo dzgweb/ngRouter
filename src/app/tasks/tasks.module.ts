@@ -19,7 +19,8 @@ import { EffectsModule } from '@ngrx/effects';
     StoreModule.forFeature('tasks', tasksReducer),
     EffectsModule.forFeature([TasksEffects]),
     TasksRoutingModule,
-    TasksServicesModule
+    TasksServicesModule,
+    EffectsModule.forFeature([TasksEffects])
   ]
 })
 export class TasksModule { }
