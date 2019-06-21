@@ -66,14 +66,36 @@ export function tasksReducer( state = initialTasksState, action: TasksActions ):
       };
     }
 
-
-    case TasksActionTypes.CREATE_TASK: {
-      console.log('CREATE_TASK action being handled!');
+    case TasksActionTypes.UPDATE_TASK: {
+      console.log('UPDATE_TASK action being handled!');
       return {...state};
     }
 
-    case TasksActionTypes.UPDATE_TASK: {
-      console.log('UPDATE_TASK action being handled!');
+    case TasksActionTypes.UPDATE_TASK_SUCCESS: {
+      console.log('UPDATE_TASK_SUCCESS action being handled!');
+      const task = { ...<TaskModel>action.payload };
+      const data = [...state.data];
+      const index = data.findIndex(t => t.id === task.id);
+
+      data[index] = task;
+
+      return {
+        ...state,
+        data
+      };
+    }
+
+    case TasksActionTypes.UPDATE_TASK_ERROR: {
+      console.log('UPDATE_TASK_ERROR action being handled!');
+      const error = action.payload;
+      return {
+        ...state,
+        error
+      };
+    }
+
+    case TasksActionTypes.CREATE_TASK: {
+      console.log('CREATE_TASK action being handled!');
       return {...state};
     }
 
