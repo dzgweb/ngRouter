@@ -24,6 +24,14 @@
       "priority": 2,
       "estHours": 2,
       "id": 8
+    },
+    {
+      "id": 9,
+      "action": "Learn NgRx",
+      "priority": 1,
+      "estHours": 40,
+      "actHours": 0,
+      "done": false
     }
   ],
   "users": [
