@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 
 import { TaskModel } from '../../models/task.model';
-import { TaskPromiseService } from '../../services';
 
 // rxjs
 import { Observable } from 'rxjs';
@@ -17,26 +16,19 @@ import * as TasksActions from './../../../core/+store/tasks/tasks.actions';
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasks: Promise<Array<TaskModel>>;
   tasksState$: Observable<TasksState>;
 
   constructor(
     private router: Router,
-    private taskPromiseService: TaskPromiseService,
     private store: Store<AppState>
   ) {}
 
   ngOnInit() {
-    // this.tasks = this.taskPromiseService.getTasks();
-    // ngrx store
     this.tasksState$ = this.store.pipe(select('tasks'));
+    this.store.dispatch(new TasksActions.GetTasks());
   }
 
   onCompleteTask(task: TaskModel): void {
-    // const updatedTask = { ...task, done: true };
-    // this.taskArrayService.updateTask(updatedTask);
-
-    // this.updateTask(task).catch(err => console.log(err));
     this.store.dispatch(new TasksActions.DoneTask(task));
   }
 
@@ -51,10 +43,10 @@ export class TaskListComponent implements OnInit {
   }
 
   onDeleteTask(task: TaskModel) {
-    this.taskPromiseService
-      .deleteTask(task)
-      .then(() => (this.tasks = this.taskPromiseService.getTasks()))
-      .catch(err => console.log(err));
+    // this.taskPromiseService
+    //   .deleteTask(task)
+    //   .then(() => (this.tasks = this.taskPromiseService.getTasks()))
+    //   .catch(err => console.log(err));
   }
 
   // private async updateTask(task: TaskModel) {

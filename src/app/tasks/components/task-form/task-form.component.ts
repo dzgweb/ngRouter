@@ -1,52 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
+// ngrx
+import { Store, select } from '@ngrx/store';
+import { AppState, TasksState } from './../../../core/+store';
+import * as TasksActions from './../../../core/+store/tasks/tasks.actions';
+
 // rxjs
-import { switchMap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 
 import { TaskModel } from '../../models/task.model';
 import { TaskPromiseService } from './../../services';
+import { AutoUnsubscribe } from './../../../core';
 
 @Component({
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.scss']
 })
+@AutoUnsubscribe()
 export class TaskFormComponent implements OnInit {
   task: TaskModel;
+  tasksState$: Observable<TasksState>;
+
+  private sub: Subscription;
 
   constructor(
     private taskPromiseService: TaskPromiseService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
     this.task = new TaskModel();
 
-    // this.route.paramMap.subscribe(params => {
-    //   const id = +params.get('taskID');
-    //   this.taskArrayService.getTask(id).then(task => this.task = {...task});
-    //   console.log(id);
-    // });
+    this.tasksState$ = this.store.pipe(select('tasks'));
+    this.sub = this.tasksState$.subscribe(
+      tasksState => (this.task = tasksState.selectedTask)
+    );
 
-    // const id = this.route.snapshot.paramMap.get('taskID');
-    // this.taskArrayService.getTask(id).then(task => this.task = task);
-
-    // it is not necessary to save subscription to route.paramMap
-    // it handles automatically
-    this.route.paramMap
-      .pipe(
-        switchMap((params: Params) => {
-          return params.get('taskID')
-            ? this.taskPromiseService.getTask(+params.get('taskID'))
-            // when Promise.resolve(null) => task = null => {...null} => {}
-            : Promise.resolve(null);
-        })  
-      )  //  switching of the flow parameters on the task flow
-      .subscribe(
-        task => this.task = {...task},
-        err => console.log(err)
-      );
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('taskID');
+      if (id) {
+        this.store.dispatch(new TasksActions.GetTask(+id));
+      }
+    });
   }
 
   onSaveTask() {
