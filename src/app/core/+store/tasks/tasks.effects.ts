@@ -39,18 +39,6 @@ export class TasksEffects {
   );
 
   @Effect()
-  getTask$: Observable<Action> = this.actions$.pipe(
-    ofType<TasksActions.GetTask>(TasksActions.TasksActionTypes.GET_TASK),
-    pluck('payload'),
-    switchMap(payload =>
-      this.taskPromiseService
-        .getTask(+payload)
-        .then(task => new TasksActions.GetTaskSuccess(task))
-        .catch(err => new TasksActions.GetTaskError(err))
-    )
-  );	
-
-  @Effect()
   updateTask$: Observable<Action> = this.actions$.pipe(
       ofType<TasksActions.UpdateTask>(TasksActions.TasksActionTypes.UPDATE_TASK),
       pluck('payload'),

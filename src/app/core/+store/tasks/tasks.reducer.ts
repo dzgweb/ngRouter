@@ -21,8 +21,7 @@ export function tasksReducer( state = initialTasksState, action: TasksActions ):
         ...state,
         data, 
         loading: false, 
-        loaded: true,
-        selectedTask: null
+        loaded: true
       };
     }
 
@@ -32,36 +31,6 @@ export function tasksReducer( state = initialTasksState, action: TasksActions ):
       return {
         ...state,
         loading: false,
-        loaded: false,
-        error
-      };
-    }
-
-    case TasksActionTypes.GET_TASK: {
-      console.log('GET_TASK action being handled!');
-      return {
-        ...state,
-        loading: true
-      };
-    }
-
-    case TasksActionTypes.GET_TASK_SUCCESS: {
-      console.log('GET_TASK_SUCCESS action being handled!');
-      const selectedTask = { ...<TaskModel>action.payload };
-      return {
-        ...state,
-        loading: false, 
-        loaded: true, 
-        selectedTask
-      };
-    }
-
-    case TasksActionTypes.GET_TASK_ERROR: {
-      console.log('GET_TASK_ERROR action being handled!');
-      const error = action.payload;
-      return {
-        ...state,
-        loading: false, 
         loaded: false,
         error
       };
