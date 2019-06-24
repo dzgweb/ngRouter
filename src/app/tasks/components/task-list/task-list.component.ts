@@ -26,8 +26,6 @@ export class TaskListComponent implements OnInit {
   ngOnInit() {
     this.tasks$ = this.store.pipe(select(getTasksData));
     this.tasksError$ = this.store.pipe(select(getTasksError));
-
-    this.store.dispatch(new TasksActions.GetTasks());
   }
 
   onCompleteTask(task: TaskModel): void {

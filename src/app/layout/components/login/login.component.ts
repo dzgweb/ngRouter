@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy{
           const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
 
           const navigationExtras: NavigationExtras = {
-            queryParamsHandling: 'preserve',  
+            queryParamsHandling: 'preserve',
             preserveFragment: true
           };
   
