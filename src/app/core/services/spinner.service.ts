@@ -19,4 +19,3 @@ export class SpinnerService {
     this.visible = true;
   }
 }
- 
