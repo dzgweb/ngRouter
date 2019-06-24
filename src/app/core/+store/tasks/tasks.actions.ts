@@ -100,11 +100,6 @@ export class DeleteTaskError implements Action {
   constructor(public payload: Error | string) { }
 }
 
-export class DoneTask implements Action {
-  readonly type = TasksActionTypes.DONE_TASK;
-  constructor(public payload: TaskModel) { }
-}
-
 export type TasksActions
   = GetTasks
   | GetTasksSuccess
