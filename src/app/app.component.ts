@@ -6,6 +6,11 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
+// @Ngrx
+import { Store } from '@ngrx/store';
+import { AppState } from './core/+store';
+import * as RouterActions from './core/+store/router/router.actions';
+
 import { MessagesService, SpinnerService } from './core';
 
 @Component({
@@ -20,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private store: Store<AppState>,
     public messagesService: MessagesService,
     public spinnerService: SpinnerService,
     private titleService: Title,
@@ -43,7 +49,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onDisplayMessages(): void {
-    this.router.navigate([{ outlets: { messages: ['messages'] } }]);
+    this.store.dispatch(
+      new RouterActions.Go({
+        path: [{ outlets: { messages: ['messages'] } }]
+      })
+    );
+
     this.messagesService.isDisplayed = true;
   }
   

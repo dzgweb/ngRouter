@@ -4,7 +4,7 @@
       "id": 4,
       "action": "Delete",
       "priority": 5,
-      "estHours": 22
+      "estHours": 23
     },
     {
       "id": 5,
@@ -37,7 +37,7 @@
   "users": [
     {
       "id": 1,
-      "firstName": "Anna",
+      "firstName": "Ann",
       "lastName": "Borisovaf"
     },
     {

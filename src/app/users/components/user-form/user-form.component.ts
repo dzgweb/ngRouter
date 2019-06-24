@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 // rxjs
 import { Observable, of } from 'rxjs';
@@ -10,6 +9,7 @@ import { pluck, switchMap } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { AppState, getUsersOriginalUser } from './../../../core/+store';
 import * as UsersActions from './../../../core/+store/users/users.actions';
+import * as RouterActions from './../../../core/+store/router/router.actions';
 
 import { UserModel } from './../../models/user.model';
 import { DialogService, CanComponentDeactivate } from './../../../core';
@@ -22,7 +22,6 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
   user: UserModel;
 
   constructor(
-    private location: Location,
     private route: ActivatedRoute,
     private dialogService: DialogService,
     private store: Store<AppState>
@@ -35,19 +34,6 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    // const flags = Object.keys(this.originalUser).map(key => {
-    //   if (this.originalUser[key] === this.user[key]) {
-    //     return true;
-    //   }
-    //   return false;
-    // });
-
-    // if (flags.every(el => el)) {
-    //   return true;
-    // }
-    
-    // return this.dialogService.confirm('Discard changes?');
-
     const flags = [];
 
     return this.store.pipe(
@@ -72,22 +58,8 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
     );
   }
 
-
   onSaveUser() {
     const user = {...this.user};
-
-    // const method = user.id ? 'updateUser' : 'createUser';
-    // this.sub = this.userObservableService[method](user)
-    //   .subscribe(
-    //     savedUser => {
-    //       this.originalUser = { ...savedUser };
-    //       user.id
-    //         // optional parameter: http://localhost:4200/users;editedUserID=2
-    //         ? this.router.navigate(['users', { editedUserID: user.id }])
-    //         : this.onGoBack();
-    //     },
-    //     error => console.log(error)
-    //   );
 
     if (user.id) {
       this.store.dispatch(new UsersActions.UpdateUser(user));
@@ -97,8 +69,7 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
   }
 
   onGoBack() {
-    // this.router.navigate(['./../../'], { relativeTo: this.route});
-    this.location.back();
+    this.store.dispatch(new RouterActions.Back());
   }
 
 }

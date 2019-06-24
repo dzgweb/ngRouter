@@ -10,6 +10,12 @@ import {
   NavigationExtras,
   UrlTree
  } from '@angular/router';
+
+// @Ngrx
+import { Store } from '@ngrx/store';
+import { AppState } from './../+store';
+import * as RouterActions from './../+store/router/router.actions';
+
 import { Observable } from 'rxjs';
 
 import { CoreModule } from '../core.module';
@@ -20,8 +26,8 @@ import { AuthService } from './../services/auth.service';
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(
-    private authService: AuthService, 
-    private router: Router
+    private authService: AuthService,
+    private store: Store<AppState>
   ) {}
 
   canActivate(
@@ -45,9 +51,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     return this.checkLogin(url);
   }
 
-
   private checkLogin(url: string): boolean {
-    if (this.authService.isLoggedIn) { 
+    if (this.authService.isLoggedIn) {
       return true;
     }
 
@@ -63,7 +68,11 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     };
 
     // Navigate to the login page
-    this.router.navigate(['/login'], navigationExtras);
+    this.store.dispatch(new RouterActions.Go({
+      path: ['/login'],
+      extras: navigationExtras
+    }));
+
     return false;
   }
 
